@@ -416,4 +416,165 @@
           <div>
             <div class="lbl">Email</div>
             <a class="val" href="mailto:abhitomar08895@gmail.com">abhitomar08895@gmail.com</a>
-   
+          </div>
+        </div>
+        <div class="c-row">
+          <div>
+            <div class="lbl">Address</div>
+            <span class="val">Oyaira, opposite Nayara Petrol Pump, Sono, Jamui – 811314, Bihar</span>
+          </div>
+        </div>
+        <div class="hours-line">
+          <span class="k">Open every day</span>
+          <span class="v">8:00 AM – 8:00 PM</span>
+        </div>
+        <a class="directions-btn" href="https://www.google.com/maps/place/The+Cyber+Nest,+NH333A+Vill,+opposite+Nayara+petrol+pump,+Oaira,+Oaira+POST,+Sono,+Jamui,+Bihar+811314/data=!4m2!3m1!1s0x39f17df3b4cd718f:0x8f82bfeb5ce671df!18m1!1e1" target="_blank" rel="noopener">Get directions ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fname">The Cyber <em>Nest</em></div>
+  <div>Aapka Trust, Hamara Commitment</div>
+  <div style="margin-top:14px; opacity:0.6;">© 2026 The Cyber Nest, Sono, Jamui.</div>
+</footer>
+
+<script>
+// ---- Scroll reveal ----
+const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+} else {
+  revealEls.forEach(el => el.classList.add('in'));
+}
+
+// ---- Count-up stats ----
+document.querySelectorAll('.stat .num').forEach(el => {
+  const raw = el.textContent.trim();
+  const numMatch = raw.match(/\d+/);
+  if(!numMatch) return;
+  const target = parseInt(numMatch[0], 10);
+  const suffix = raw.replace(numMatch[0], '');
+  let started = false;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting && !started){
+        started = true;
+        let cur = 0;
+        const step = Math.max(1, Math.round(target / 24));
+        const t = setInterval(() => {
+          cur += step;
+          if(cur >= target){ cur = target; clearInterval(t); }
+          el.textContent = cur + suffix;
+        }, 28);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  obs.observe(el);
+});
+
+const categories = [
+  { name:"Government Services", items:[
+    "Aadhaar Services","PAN Card","Voter ID Apply / Correction","Ration Card Apply / Correction",
+    "Birth Certificate","Death Certificate","Caste Certificate","Income Certificate",
+    "Residential Certificate","Character Certificate","Labour Card","E-Shram Card",
+    "PM Kisan Registration","Pension Services","Vridha Pension e-KYC"
+  ]},
+  { name:"Banking & Finance", items:[
+    "AEPS Cash Withdrawal","AEPS Cash Deposit","Money Transfer (DMT)","Mini Statement",
+    "Balance Enquiry","Account Opening (BC)","PAN Card","FASTag","Insurance Renewal",
+    "Loan Enquiry Support","Mutual Fund / SIP"
+  ]},
+  { name:"Travel Services", items:[
+    "Train Ticket Booking","Flight Ticket Booking","Bus Ticket Booking","Hotel Booking","Tour Package Booking"
+  ]},
+  { name:"Education Services", items:[
+    "Scholarship Form","College Admission Form","Exam Form Filling","Result Print",
+    "Online Counseling","Student Registration","Admit Card Download","Marksheet Print"
+  ]},
+  { name:"Digital Services", items:[
+    "Email ID Creation","Passport Photo","Photo Editing","Resume / CV Design","Document Typing",
+    "Lamination","Spiral Binding","Color Print","Black & White Print","Scanning","Xerox"
+  ]},
+  { name:"Vehicle Services", items:[
+    "RC Download","DL Download","DL Apply / Renew","RC Mobile Number Update",
+    "PUC Certificate","Challan Payment","HSRP Number Plate Booking",
+    "Vehicle Insurance (Car / Bike / Auto / Commercial)","50+ Insurance Companies to Choose From","Claim Support"
+  ]},
+  { name:"Online Payments", items:[
+    "Mobile Recharge","DTH Recharge","Electricity Bill Payment","Gas Booking",
+    "Water Bill Payment","Broadband Bill","Landline Bill","Credit Card Bill Payment"
+  ]},
+  { name:"CSC Services", items:[
+    "Aadhaar Update","Udyam Registration","GST Registration","Digital Signature",
+    "Passport Services","All Other CSC Services"
+  ]},
+  { name:"Form Filling Services", items:[
+    "Online Form Filling","Application Form Filling","Job Application",
+    "Police Verification","RTI Application","Grievance Filing"
+  ]},
+  { name:"Other Services", items:[
+    "Internet Browsing","Online Data Entry","WhatsApp Assistance","Video Calling",
+    "YouTube / Study Material","Pendrive / Memory Card","Stationery Items"
+  ]}
+];
+
+const acc = document.getElementById('accordion');
+
+categories.forEach((cat, i) => {
+  const item = document.createElement('div');
+  item.className = 'acc-item';
+  item.setAttribute('data-open', i === 0 ? 'true' : 'false');
+
+  const rows = cat.items.map((s, idx) => `
+    <div class="item-row">
+      <span class="n">${String(idx+1).padStart(2,'0')}</span>
+      <span class="t">${s}</span>
+    </div>`).join('');
+
+  item.innerHTML = `
+    <button class="acc-trigger" aria-expanded="${i===0}">
+      <span class="idx">${String(i+1).padStart(2,'0')}</span>
+      <h3>${cat.name}</h3>
+      <span class="toggle">${i===0 ? '−' : '+'}</span>
+    </button>
+    <div class="acc-panel">
+      <div class="acc-panel-inner">
+        <div class="item-grid">${rows}</div>
+      </div>
+    </div>
+  `;
+  acc.appendChild(item);
+
+  const trigger = item.querySelector('.acc-trigger');
+  const panel = item.querySelector('.acc-panel');
+  const toggleIcon = item.querySelector('.toggle');
+
+  function setState(open){
+    item.setAttribute('data-open', open);
+    trigger.setAttribute('aria-expanded', open);
+    toggleIcon.textContent = open ? '−' : '+';
+    panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0px';
+  }
+
+  trigger.addEventListener('click', () => {
+    const isOpen = item.getAttribute('data-open') === 'true';
+    setState(!isOpen);
+  });
+
+  if(i === 0){ requestAnimationFrame(() => setState(true)); }
+});
+</script>
+
+</body>
+</html>
