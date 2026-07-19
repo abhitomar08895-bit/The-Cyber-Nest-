@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cyber Nest — Fifty Services, One Counter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EEE6D2;
+    --paper-2: #E5DCC4;
+    --ink: #1A1B16;
+    --black: #121309;
+    --muted: #6E6656;
+    --line: #D6CBAA;
+    --accent: #C1502E;
+    --card: #F5EFDE;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{ font-family:'Fraunces',serif; letter-spacing:-0.01em; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  em{ font-family:'Fraunces',serif; font-style:italic; color:var(--accent); }
+  a{ color:inherit; }
+  img{max-width:100%;display:block;}
+  .wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  /* ===== HEADER ===== */
+  header.site{ background:var(--paper); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:50; }
+  .nav{
+    max-width:920px; margin:0 auto; padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--ink); }
+  .brand .mark{
+    width:52px; height:52px; border-radius:50%; background:#F5EFDE; overflow:hidden;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; padding:5px;
+    border:1px solid var(--line);
+  }
+  .brand .mark img{ width:100%; height:100%; object-fit:contain; }
+  .brand-text .name{ font-size:19px; font-weight:500; line-height:1.15; }
+  .brand-text .tag{
+    display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px;
+    color:var(--muted); letter-spacing:0.12em; text-transform:uppercase; margin-top:3px;
+  }
+  .nav-right{ display:flex; align-items:center; gap:14px; }
+  .wa-pill{
+    display:inline-flex; align-items:center; gap:9px;
+    background:var(--black); color:#F5EFDE; text-decoration:none;
+    padding:12px 22px; border-radius:999px; font-size:14.5px; font-weight:500;
+    transition:transform .15s ease;
+  }
+  .wa-pill:hover{ transform:translateY(-1px); }
+  .wa-dot{ width:8px; height:8px; border-radius:50%; background:#3CCB6F; box-shadow:0 0 6px #3CCB6F; flex-shrink:0; }
+  .burger{
+    width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background:transparent;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;
+  }
+  .burger svg{ width:18px; height:18px; }
+
+  /* ===== HERO ===== */
+  .hero{ padding:64px 24px 40px; }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted);
+    letter-spacing:0.14em; text-transform:uppercase; margin-bottom:18px; display:block;
+  }
+  .hero h1{
+    font-size:52px; line-height:1.05; font-weight:500; margin:0 0 22px; max-width:14ch;
+  }
+  .hero p.lead{
+    font-size:16.5px; line-height:1.65; color:#3B392E; max-width:52ch; margin:0 0 30px;
+  }
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 24px; border-radius:999px; font-size:14.5px; font-weight:500;
+    text-decoration:none; cursor:pointer; border:1px solid transparent;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn-solid{ background:var(--black); color:#F5EFDE; }
+  .btn-outline{ background:transparent; color:var(--ink); border-color:var(--ink); }
+
+  .stats{ display:flex; gap:56px; padding-top:28px; border-top:1px solid var(--line); }
+  .stat .mono{
+    display:block; font-size:11px; color:var(--muted); letter-spacing:0.12em;
+    text-transform:uppercase; margin-bottom:6px;
+  }
+  .stat .num{ font-size:44px; font-weight:500; line-height:1; }
+
+  /* ===== QUOTE CARD ===== */
+  .quote-section{ padding:0 24px 64px; }
+  .quote-card{
+    max-width:920px; margin:0 auto; background:var(--card); border:1px solid var(--line);
+    border-radius:18px; padding:38px 40px;
+  }
+  .quote-card p{ font-size:19px; line-height:1.55; margin:0 0 20px; font-family:'Fraunces',serif; font-weight:400; }
+  .quote-card .cap{
+    font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted);
+    letter-spacing:0.12em; text-transform:uppercase;
+  }
+
+  /* ===== DIRECTORY ===== */
+  .directory{ padding:0 24px 64px; }
+  .dir-head{ max-width:920px; margin:0 auto 34px; }
+  .dir-head h2{ font-size:36px; font-weight:500; margin:0 0 14px; }
+  .dir-head p{ font-size:15px; color:var(--muted); line-height:1.6; max-width:56ch; margin:0; }
+  .accordion{ max-width:920px; margin:0 auto; border-top:1px solid var(--line); }
+  .acc-item{ border-bottom:1px solid var(--line); }
+  .acc-trigger{
+    width:100%; background:none; border:none; cursor:pointer;
+    display:flex; align-items:center; gap:20px; padding:26px 4px; text-align:left;
+  }
+  .acc-trigger .idx{ font-family:'JetBrains Mono',monospace; color:var(--muted); font-size:13px; width:24px; flex-shrink:0; }
+  .acc-trigger h3{ flex:1; font-size:26px; font-weight:500; margin:0; line-height:1.15; }
+  .acc-trigger .toggle{
+    width:38px; height:38px; border-radius:50%; background:var(--black); color:var(--paper);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:17px;
+    transition:transform .2s ease;
+  }
+  .acc-item[data-open="true"] .toggle{ transform:rotate(180deg); }
+  .acc-panel{
+    max-height:0; overflow:hidden; transition:max-height .35s ease;
+  }
+  .acc-panel-inner{ padding:0 4px 30px; }
+  .item-grid{ display:grid; grid-template-columns:1fr 1fr; column-gap:32px; }
+  @media (max-width:600px){ .item-grid{ grid-template-columns:1fr; } }
+  .item-row{
+    display:flex; align-items:baseline; gap:12px; padding:13px 0; border-bottom:1px solid var(--line);
+  }
+  .item-row .n{ font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted); width:20px; flex-shrink:0; }
+  .item-row .t{ font-size:14.5px; font-weight:500; }
+
+  /* ===== FIGURES ===== */
+  .figures{ padding:0 24px 64px; }
+  .fig-wrap{ max-width:920px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+  .fig-wrap .fig-wide{ grid-column:1 / -1; }
+  @media (max-width:760px){ .fig-wrap{ grid-template-columns:1fr; } }
+  .fig{
+    position:relative; border-radius:16px; overflow:hidden; min-height:230px;
+    display:flex; align-items:flex-end; padding:22px; background:#1A212E;
+  }
+  .fig img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
+  }
+  .fig::after{
+    content:""; position:absolute; inset:0; z-index:0;
+    background:linear-gradient(to top, rgba(10,10,6,0.75) 0%, rgba(10,10,6,0.15) 55%, transparent 100%);
+  }
+  .fig-cap{ position:relative; z-index:1; color:#F2ECDD; }
+  .fig-cap .mono{ font-size:11px; letter-spacing:0.14em; text-transform:uppercase; opacity:0.75; display:block; margin-bottom:6px; }
+  .fig-cap .title{ font-family:'Fraunces',serif; font-style:italic; font-size:22px; font-weight:400; }
+
+  /* ===== WHY ===== */
+  .why{ padding:0 24px 64px; }
+  .why-wrap{ max-width:920px; margin:0 auto; }
+  .why-wrap h2{ font-size:34px; font-weight:500; margin:0 0 34px; }
+  .why-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  @media (max-width:820px){ .why-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:480px){ .why-grid{ grid-template-columns:1fr; } }
+  .why-card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; }
+  .why-card .n{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent); margin-bottom:14px; display:block; }
+  .why-card h4{ font-size:16px; margin:0 0 8px; font-weight:500; }
+  .why-card p{ font-size:13px; color:var(--muted); line-height:1.55; margin:0; }
+
+  /* ===== CONTACT ===== */
+  .contact{ padding:0 24px 80px; }
+  .contact-wrap{ max-width:920px; margin:0 auto; }
+  .contact-wrap h2{ font-size:34px; font-weight:500; margin:0 0 34px; }
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line); border-radius:18px; overflow:hidden; background:var(--card); }
+  @media (max-width:760px){ .contact-grid{ grid-template-columns:1fr; } }
+  .map-box{ min-height:340px; background:var(--paper-2); }
+  .map-box iframe{ width:100%; height:100%; min-height:340px; border:0; display:block; }
+  .info-box{ padding:36px; }
+  .c-row{ display:flex; gap:14px; margin-bottom:22px; }
+  .c-row .lbl{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:4px; }
+  .c-row .val{ font-size:15px; font-weight:500; text-decoration:none; }
+  .c-row .val:hover{ color:var(--accent); }
+  .hours-line{ display:flex; justify-content:space-between; padding:14px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin:22px 0; font-size:14px; }
+  .hours-line .k{ color:var(--muted); }
+  .hours-line .v{ font-family:'JetBrains Mono',monospace; font-weight:600; }
+  .directions-btn{
+    display:inline-flex; align-items:center; gap:8px; background:var(--black); color:#F5EFDE;
+    text-decoration:none; padding:12px 20px; border-radius:999px; font-size:13.5px; font-weight:500;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{ background:var(--black); color:#B9AF95; padding:40px 24px; text-align:center; font-size:13px; }
+  footer .fname{ font-family:'Fraunces',serif; font-size:19px; color:#F5EFDE; margin-bottom:6px; }
+  footer .fname em{ color:var(--accent); }
+
+  @media (max-width:600px){ .hero h1{ font-size:38px; } .stats{ gap:36px; } }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal-stagger > *{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal-stagger.in > *{ opacity:1; transform:translateY(0); }
+  .reveal-stagger.in > *:nth-child(1){ transition-delay:.02s; }
+  .reveal-stagger.in > *:nth-child(2){ transition-delay:.08s; }
+  .reveal-stagger.in > *:nth-child(3){ transition-delay:.14s; }
+  .reveal-stagger.in > *:nth-child(4){ transition-delay:.2s; }
+  .reveal-stagger.in > *:nth-child(5){ transition-delay:.26s; }
+  .reveal-stagger.in > *:nth-child(6){ transition-delay:.32s; }
+  .reveal-stagger.in > *:nth-child(n+7){ transition-delay:.36s; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; animation:none !important; }
+    .reveal, .reveal-stagger > *{ opacity:1 !important; transform:none !important; }
+  }
+
+  /* ===== GOOGLE REVIEWS ===== */
+  .reviews{ padding:0 24px 64px; }
+  .reviews-wrap{ max-width:920px; margin:0 auto; background:var(--card); border:1px solid var(--line); border-radius:20px; padding:44px; text-align:center; }
+  .g-icon{ width:40px; height:40px; margin:0 auto 18px; }
+  .reviews-wrap h2{ font-size:28px; font-weight:500; margin:0 0 10px; }
+  .reviews-wrap p{ font-size:14px; color:var(--muted); max-width:44ch; margin:0 auto 22px; }
+  .stars{ display:flex; justify-content:center; gap:4px; margin-bottom:22px; }
+  .stars svg{ width:22px; height:22px; color:var(--accent); }
+  .review-btns{ display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <a href="#" class="brand">
+      <span class="mark">
+        <img src="assets/logo.png" alt="The Cyber Nest logo">
+      </span>
+      <span class="brand-text">
+        <span class="name">The Cyber Nest</span>
+        <span class="tag">Est · Jamui · Bihar</span>
+      </span>
+    </a>
+    <div class="nav-right">
+      <a class="wa-pill" href="https://wa.me/918084152831" target="_blank" rel="noopener">
+        <span class="wa-dot"></span> WhatsApp
+      </a>
+      <button class="burger" aria-label="Menu" onclick="document.getElementById('directory').scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Sono · Jamui · Bihar 811314</span>
+    <h1>Fifty services, <em>one</em> counter.</h1>
+    <p class="lead">Ten verticals — from Aadhaar to Air-tickets. Tap a chapter below to open the full list. Every service is available in-store or over WhatsApp.</p>
+    <div class="cta-row">
+      <a class="btn btn-solid" href="https://wa.me/918084152831" target="_blank" rel="noopener">Request a service ↗</a>
+      <a class="btn btn-outline" href="#directory">Browse 50+ services</a>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <span class="mono">Services Offered</span>
+        <span class="num serif">50+</span>
+      </div>
+      <div class="stat">
+        <span class="mono">Verticals</span>
+        <span class="num serif">10</span>
+      </div>
+      <div class="stat">
+        <span class="mono">Counter</span>
+        <span class="num serif">1</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <div class="quote-card reveal">
+    <p>A neighbourhood cyber café in Sono, Jamui — quietly powering <em>fifty and more</em> government, banking, travel and printing services under one roof.</p>
+    <span class="cap">Prop. Abhishek Kumar</span>
+  </div>
+</section>
+
+<section class="directory" id="directory">
+  <div class="dir-head reveal">
+    <h2>The full directory</h2>
+    <p>Every chapter opens into the exact services we handle at that counter — tap to expand.</p>
+  </div>
+  <div class="accordion reveal-stagger" id="accordion"></div>
+</section>
+
+<section class="figures">
+  <div class="fig-wrap">
+    <div class="fig">
+      <img src="assets/storefront.jpg" alt="The Cyber Nest storefront in Sono, Jamui">
+      <div class="fig-cap">
+        <span class="mono">Fig. 01</span>
+        <span class="title">The Storefront</span>
+      </div>
+    </div>
+    <div class="fig">
+      <img src="assets/counter.jpg" alt="Service counter inside The Cyber Nest">
+      <div class="fig-cap">
+        <span class="mono">Fig. 02</span>
+        <span class="title">The Counter</span>
+      </div>
+    </div>
+    <div class="fig">
+      <img src="assets/certificates.jpg" alt="CSC authorisation certificate on display">
+      <div class="fig-cap">
+        <span class="mono">Fig. 03</span>
+        <span class="title">Certified &amp; Registered</span>
+      </div>
+    </div>
+    <div class="fig fig-wide">
+      <img src="assets/services-banner.jpg" alt="The Cyber Nest — services at a glance">
+      <div class="fig-cap">
+        <span class="mono">Fig. 04</span>
+        <span class="title">Services at a Glance</span>
+      </div>
+    </div>
+    <div class="fig fig-wide">
+      <img src="assets/vehicle-banner.jpg" alt="The Cyber Nest — vehicle insurance, PUC and fitness services">
+      <div class="fig-cap">
+        <span class="mono">Fig. 05</span>
+        <span class="title">Vehicle Insurance &amp; PUC</span>
+      </div>
+    </div>
+    <div class="fig fig-wide">
+      <img src="assets/csc-banner.jpg" alt="The Cyber Nest — CSC digital seva kendra services list in Hindi">
+      <div class="fig-cap">
+        <span class="mono">Fig. 06</span>
+        <span class="title">CSC Digital Seva Kendra</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="why-wrap reveal">
+    <h2>Why locals come back</h2>
+    <div class="why-grid reveal-stagger">
+      <div class="why-card">
+        <span class="n mono">01</span>
+        <h4>Genuine service</h4>
+        <p>No shortcuts — every application goes through the correct official channel.</p>
+      </div>
+      <div class="why-card">
+        <span class="n mono">02</span>
+        <h4>On-time delivery</h4>
+        <p>Real timelines upfront, with follow-up so nothing sits unnoticed.</p>
+      </div>
+      <div class="why-card">
+        <span class="n mono">03</span>
+        <h4>Friendly support</h4>
+        <p>Ask in Hindi or English — we explain the form, fee and wait before you commit.</p>
+      </div>
+      <div class="why-card">
+        <span class="n mono">04</span>
+        <h4>Affordable charges</h4>
+        <p>Posted rates for every service — you know the cost before we start.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="reviews-wrap reveal">
+    <svg class="g-icon" viewBox="0 0 48 48">
+      <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.5 6 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/>
+      <path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34.5 6 29.5 4 24 4c-7.5 0-14 4.2-17.7 10.7z"/>
+      <path fill="#4CAF50" d="M24 44c5.4 0 10.3-1.9 14-5.2l-6.5-5.5C29.4 34.7 26.8 35.5 24 35.5c-5.3 0-9.7-3.4-11.3-8.1l-6.6 5C9.9 39.6 16.4 44 24 44z"/>
+      <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.2 5.7l6.5 5.5C40.9 36.2 44 30.9 44 24c0-1.3-.1-2.7-.4-3.5z"/>
+    </svg>
+    <h2>Reviewed by Sono, Jamui</h2>
+    <div class="stars" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 7 1-5 4.9 1.2 6.9-6.3-3.3-6.3 3.3 1.2-6.9-5-4.9 7-1z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 7 1-5 4.9 1.2 6.9-6.3-3.3-6.3 3.3 1.2-6.9-5-4.9 7-1z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 7 1-5 4.9 1.2 6.9-6.3-3.3-6.3 3.3 1.2-6.9-5-4.9 7-1z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 7 1-5 4.9 1.2 6.9-6.3-3.3-6.3 3.3 1.2-6.9-5-4.9 7-1z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 7 1-5 4.9 1.2 6.9-6.3-3.3-6.3 3.3 1.2-6.9-5-4.9 7-1z"/></svg>
+    </div>
+    <p>Real reviews from real customers on Google — read what people say about the counter, or leave your own after a visit.</p>
+    <div class="review-btns">
+      <a class="btn btn-solid" href="https://www.google.com/maps/place/The+Cyber+Nest,+NH333A+Vill,+opposite+Nayara+petrol+pump,+Oaira,+Oaira+POST,+Sono,+Jamui,+Bihar+811314/data=!4m2!3m1!1s0x39f17df3b4cd718f:0x8f82bfeb5ce671df!18m1!1e1" target="_blank" rel="noopener">Read Reviews on Google</a>
+      <a class="btn btn-outline" href="https://www.google.com/maps/place/The+Cyber+Nest,+NH333A+Vill,+opposite+Nayara+petrol+pump,+Oaira,+Oaira+POST,+Sono,+Jamui,+Bihar+811314/data=!4m2!3m1!1s0x39f17df3b4cd718f:0x8f82bfeb5ce671df!18m1!1e1" target="_blank" rel="noopener">Write a Review</a>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-wrap reveal">
+    <h2>Find the counter</h2>
+    <div class="contact-grid">
+      <div class="map-box">
+        <iframe
+          src="https://www.google.com/maps?q=The+Cyber+Nest,+NH333A,+opposite+Nayara+petrol+pump,+Oaira,+Sono,+Jamui,+Bihar+811314&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="The Cyber Nest location map">
+        </iframe>
+      </div>
+      <div class="info-box">
+        <div class="c-row">
+          <div>
+            <div class="lbl">Phone / WhatsApp</div>
+            <a class="val" href="tel:+918084152831">+91 80841 52831</a>
+          </div>
+        </div>
+        <div class="c-row">
+          <div>
+            <div class="lbl">Email</div>
+            <a class="val" href="mailto:abhitomar08895@gmail.com">abhitomar08895@gmail.com</a>
+          </div>
+        </div>
+        <div class="c-row">
+          <div>
+            <div class="lbl">Address</div>
+            <span class="val">Oyaira, opposite Nayara Petrol Pump, Sono, Jamui – 811314, Bihar</span>
+          </div>
+        </div>
+        <div class="hours-line">
+          <span class="k">Open every day</span>
+          <span class="v">8:00 AM – 8:00 PM</span>
+        </div>
+        <a class="directions-btn" href="https://www.google.com/maps/place/The+Cyber+Nest,+NH333A+Vill,+opposite+Nayara+petrol+pump,+Oaira,+Oaira+POST,+Sono,+Jamui,+Bihar+811314/data=!4m2!3m1!1s0x39f17df3b4cd718f:0x8f82bfeb5ce671df!18m1!1e1" target="_blank" rel="noopener">Get directions ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fname">The Cyber <em>Nest</em></div>
+  <div>Aapka Trust, Hamara Commitment</div>
+  <div style="margin-top:14px; opacity:0.6;">© 2026 The Cyber Nest, Sono, Jamui.</div>
+</footer>
+
+<script>
+// ---- Scroll reveal ----
+const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+} else {
+  revealEls.forEach(el => el.classList.add('in'));
+}
+
+// ---- Count-up stats ----
+document.querySelectorAll('.stat .num').forEach(el => {
+  const raw = el.textContent.trim();
+  const numMatch = raw.match(/\d+/);
+  if(!numMatch) return;
+  const target = parseInt(numMatch[0], 10);
+  const suffix = raw.replace(numMatch[0], '');
+  let started = false;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting && !started){
+        started = true;
+        let cur = 0;
+        const step = Math.max(1, Math.round(target / 24));
+        const t = setInterval(() => {
+          cur += step;
+          if(cur >= target){ cur = target; clearInterval(t); }
+          el.textContent = cur + suffix;
+        }, 28);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  obs.observe(el);
+});
+
+const categories = [
+  { name:"Government Services", items:[
+    "Aadhaar Services","PAN Card","Voter ID Apply / Correction","Ration Card Apply / Correction",
+    "Birth Certificate","Death Certificate","Caste Certificate","Income Certificate",
+    "Residential Certificate","Character Certificate","Labour Card","E-Shram Card",
+    "PM Kisan Registration","Pension Services","Vridha Pension e-KYC"
+  ]},
+  { name:"Banking & Finance", items:[
+    "AEPS Cash Withdrawal","AEPS Cash Deposit","Money Transfer (DMT)","Mini Statement",
+    "Balance Enquiry","Account Opening (BC)","PAN Card","FASTag","Insurance Renewal",
+    "Loan Enquiry Support","Mutual Fund / SIP"
+  ]},
+  { name:"Travel Services", items:[
+    "Train Ticket Booking","Flight Ticket Booking","Bus Ticket Booking","Hotel Booking","Tour Package Booking"
+  ]},
+  { name:"Education Services", items:[
+    "Scholarship Form","College Admission Form","Exam Form Filling","Result Print",
+    "Online Counseling","Student Registration","Admit Card Download","Marksheet Print"
+  ]},
+  { name:"Digital Services", items:[
+    "Email ID Creation","Passport Photo","Photo Editing","Resume / CV Design","Document Typing",
+    "Lamination","Spiral Binding","Color Print","Black & White Print","Scanning","Xerox"
+  ]},
+  { name:"Vehicle Services", items:[
+    "RC Download","DL Download","DL Apply / Renew","RC Mobile Number Update",
+    "PUC Certificate","Challan Payment","HSRP Number Plate Booking",
+    "Vehicle Insurance (Car / Bike / Auto / Commercial)","50+ Insurance Companies to Choose From","Claim Support"
+  ]},
+  { name:"Online Payments", items:[
+    "Mobile Recharge","DTH Recharge","Electricity Bill Payment","Gas Booking",
+    "Water Bill Payment","Broadband Bill","Landline Bill","Credit Card Bill Payment"
+  ]},
+  { name:"CSC Services", items:[
+    "Aadhaar Update","Udyam Registration","GST Registration","Digital Signature",
+    "Passport Services","All Other CSC Services"
+  ]},
+  { name:"Form Filling Services", items:[
+    "Online Form Filling","Application Form Filling","Job Application",
+    "Police Verification","RTI Application","Grievance Filing"
+  ]},
+  { name:"Other Services", items:[
+    "Internet Browsing","Online Data Entry","WhatsApp Assistance","Video Calling",
+    "YouTube / Study Material","Pendrive / Memory Card","Stationery Items"
+  ]}
+];
+
+const acc = document.getElementById('accordion');
+
+categories.forEach((cat, i) => {
+  const item = document.createElement('div');
+  item.className = 'acc-item';
+  item.setAttribute('data-open', i === 0 ? 'true' : 'false');
+
+  const rows = cat.items.map((s, idx) => `
+    <div class="item-row">
+      <span class="n">${String(idx+1).padStart(2,'0')}</span>
+      <span class="t">${s}</span>
+    </div>`).join('');
+
+  item.innerHTML = `
+    <button class="acc-trigger" aria-expanded="${i===0}">
+      <span class="idx">${String(i+1).padStart(2,'0')}</span>
+      <h3>${cat.name}</h3>
+      <span class="toggle">${i===0 ? '−' : '+'}</span>
+    </button>
+    <div class="acc-panel">
+      <div class="acc-panel-inner">
+        <div class="item-grid">${rows}</div>
+      </div>
+    </div>
+  `;
+  acc.appendChild(item);
+
+  const trigger = item.querySelector('.acc-trigger');
+  const panel = item.querySelector('.acc-panel');
+  const toggleIcon = item.querySelector('.toggle');
+
+  function setState(open){
+    item.setAttribute('data-open', open);
+    trigger.setAttribute('aria-expanded', open);
+    toggleIcon.textContent = open ? '−' : '+';
+    panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0px';
+  }
+
+  trigger.addEventListener('click', () => {
+    const isOpen = item.getAttribute('data-open') === 'true';
+    setState(!isOpen);
+  });
+
+  if(i === 0){ requestAnimationFrame(() => setState(true)); }
+});
+</script>
+
+</body>
+</html>
