@@ -109,6 +109,18 @@
     letter-spacing:0.12em; text-transform:uppercase;
   }
 
+  /* ===== ABOUT ===== */
+  .about{ padding:0 24px 64px; }
+  .about-wrap{ max-width:720px; margin:0 auto; text-align:center; }
+  .about-wrap h2{ font-size:32px; font-weight:500; margin:0 0 18px; }
+  .about-wrap p{ font-size:15.5px; line-height:1.7; color:#3B392E; margin:0 0 32px; }
+  .badge-row{ display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+  .badge{
+    display:flex; align-items:center; gap:9px; background:var(--card); border:1px solid var(--line);
+    border-radius:999px; padding:11px 18px; font-size:13.5px; font-weight:500;
+  }
+  .badge-icon{ font-size:16px; line-height:1; }
+
   /* ===== DIRECTORY ===== */
   .directory{ padding:0 24px 64px; }
   .dir-head{ max-width:920px; margin:0 auto 34px; }
@@ -235,7 +247,7 @@
   <div class="nav">
     <a href="#" class="brand">
       <span class="mark">
-        <img src="logo.png" alt="The Cyber Nest logo">
+        <img src="assets/logo.png" alt="The Cyber Nest logo">
       </span>
       <span class="brand-text">
         <span class="name">The Cyber Nest</span>
@@ -286,6 +298,31 @@
   </div>
 </section>
 
+<section class="about">
+  <div class="about-wrap reveal">
+    <h2>About The Cyber Nest</h2>
+    <p>The Cyber Nest is a trusted digital service centre located opposite Nayara Petrol Pump, Oyaira, Sono, Jamui. We provide more than 50 government, banking, insurance, travel and online services under one roof.</p>
+    <div class="badge-row">
+      <div class="badge">
+        <span class="badge-icon">💻</span>
+        <span>50+ Digital Services</span>
+      </div>
+      <div class="badge">
+        <span class="badge-icon">🛡️</span>
+        <span>CSC Authorized</span>
+      </div>
+      <div class="badge">
+        <span class="badge-icon">🚆</span>
+        <span>IRCTC Authorized</span>
+      </div>
+      <div class="badge">
+        <span class="badge-icon">🤝</span>
+        <span>Trusted Customer Support</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="directory" id="directory">
   <div class="dir-head reveal">
     <h2>The full directory</h2>
@@ -297,42 +334,42 @@
 <section class="figures">
   <div class="fig-wrap">
     <div class="fig">
-      <img src="storefront.jpg" alt="The Cyber Nest storefront in Sono, Jamui">
+      <img src="assets/storefront.jpg" alt="The Cyber Nest storefront in Sono, Jamui">
       <div class="fig-cap">
         <span class="mono">Fig. 01</span>
         <span class="title">The Storefront</span>
       </div>
     </div>
     <div class="fig">
-      <img src="counter.jpg" alt="Service counter inside The Cyber Nest">
+      <img src="assets/counter.jpg" alt="Service counter inside The Cyber Nest">
       <div class="fig-cap">
         <span class="mono">Fig. 02</span>
         <span class="title">The Counter</span>
       </div>
     </div>
     <div class="fig">
-      <img src="certificates.jpg" alt="CSC authorisation certificate on display">
+      <img src="assets/certificates.jpg" alt="CSC authorisation certificate on display">
       <div class="fig-cap">
         <span class="mono">Fig. 03</span>
         <span class="title">Certified &amp; Registered</span>
       </div>
     </div>
     <div class="fig fig-wide">
-      <img src="services-banner.jpg" alt="The Cyber Nest — services at a glance">
+      <img src="assets/services-banner.jpg" alt="The Cyber Nest — services at a glance">
       <div class="fig-cap">
         <span class="mono">Fig. 04</span>
         <span class="title">Services at a Glance</span>
       </div>
     </div>
     <div class="fig fig-wide">
-      <img src="vehicle-banner.jpg" alt="The Cyber Nest — vehicle insurance, PUC and fitness services">
+      <img src="assets/vehicle-banner.jpg" alt="The Cyber Nest — vehicle insurance, PUC and fitness services">
       <div class="fig-cap">
         <span class="mono">Fig. 05</span>
         <span class="title">Vehicle Insurance &amp; PUC</span>
       </div>
     </div>
     <div class="fig fig-wide">
-      <img src="csc-banner.jpg" alt="The Cyber Nest — CSC digital seva kendra services list in Hindi">
+      <img src="assets/csc-banner.jpg" alt="The Cyber Nest — CSC digital seva kendra services list in Hindi">
       <div class="fig-cap">
         <span class="mono">Fig. 06</span>
         <span class="title">CSC Digital Seva Kendra</span>
